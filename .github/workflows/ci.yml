@@ -73,9 +73,44 @@ jobs:
           KEY: ${{ secrets.SERVER_SSH_KEY }}
           HOST: ${{ secrets.SERVER_HOST }}
         run: |
+          set -euo pipefail
+
+          if [ -z "${KEY:-}" ] || [ -z "${HOST:-}" ]; then
+            echo "::warning::SERVER_SSH_KEY / SERVER_HOST not set — skipping deploy."
+            echo "Tests passed; nothing was deployed. See STEP_BY_STEP.md Phase 2."
+            exit 0
+          fi
+
           mkdir -p ~/.ssh
           printf '%s\n' "$KEY" > ~/.ssh/id_deploy
           chmod 600 ~/.ssh/id_deploy
-          ssh -i ~/.ssh/id_deploy -o StrictHostKeyChecking=accept-new \
-            root@"$HOST" \
-            'cd /root/grihasti && git pull && docker compose up -d --build'
+          SSH="ssh -i $HOME/.ssh/id_deploy -o StrictHostKeyChecking=accept-new root@$HOST"
+
+          # Distinguish "server not set up yet" from "deploy genuinely broke".
+          # Without this the job just exits 1 and you have to go digging.
+          if ! $SSH 'test -d /root/grihasti/.git'; then
+            echo "::error::/root/grihasti does not exist on $HOST yet."
+            echo ""
+            echo "Tests passed and the build is fine — the server just hasn't been"
+            echo "set up. Run Phase 3 of STEP_BY_STEP.md once, then push again."
+            echo "It is a one-time step: clone the repo, write .env, docker compose up."
+            exit 1
+          fi
+
+          if ! $SSH 'test -f /root/grihasti/.env'; then
+            echo "::error::/root/grihasti/.env is missing on $HOST."
+            echo "The app cannot start without DB_PASSWORD. See STEP_BY_STEP.md Step 3.6."
+            exit 1
+          fi
+
+          $SSH 'cd /root/grihasti && git pull --ff-only && docker compose up -d --build'
+
+          echo "Waiting for the container to come up..."
+          sleep 15
+          if $SSH 'docker ps --filter name=grihasti-web --filter status=running -q | grep -q .'; then
+            echo "Deployed. grihasti-web is running."
+          else
+            echo "::error::grihasti-web is not running after deploy. Recent logs:"
+            $SSH 'cd /root/grihasti && docker compose logs --tail 40 web' || true
+            exit 1
+          fi
