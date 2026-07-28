@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
 import LoginForm from "@/components/LoginForm";
 
 export const metadata = { title: "Sign in — Grihasti" };
@@ -19,6 +20,7 @@ export default function LoginPage() {
           <LoginForm />
         </Suspense>
       </main>
+      <SiteFooter />
     </>
   );
 }

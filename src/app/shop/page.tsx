@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
 import { listCatalog } from "@/lib/catalog";
 
 export const metadata = { title: "The Bhai-Behen Collection — Grihasti" };
@@ -111,6 +112,7 @@ export default async function Shop() {
           )}
         </section>
       </main>
+      <SiteFooter />
     </>
   );
 }

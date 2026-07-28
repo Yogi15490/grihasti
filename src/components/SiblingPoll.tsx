@@ -53,9 +53,10 @@ export default function SiblingPoll() {
 
   return (
     <div>
-      <h2 style={{ fontSize: 30, marginBottom: 6 }}>Which one&apos;s YOUR sibling?</h2>
+      <h2 style={{ fontSize: 30, marginBottom: 6 }}>Not buying today?</h2>
       <p className="serif-italic" style={{ color: "var(--clay)", marginBottom: 20 }}>
-        Tap the one that&apos;s so them. (The popular ones sell out first.)
+        Tell us which one is your sibling and we&apos;ll hold the thought — plus warn you
+        before it sells out.
       </p>
 
       <div className="grid grid-3" style={{ marginBottom: 24 }}>

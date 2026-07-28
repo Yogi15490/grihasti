@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
 import AddToCart from "@/components/AddToCart";
 import { getCatalogItem } from "@/lib/catalog";
 
@@ -97,6 +98,7 @@ export default async function DesignDetail({
           </div>
         </section>
       </main>
+      <SiteFooter />
     </>
   );
 }

@@ -1,4 +1,5 @@
 import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
 import CartView from "@/components/CartView";
 
 export const metadata = { title: "Your cart — Grihasti" };
@@ -15,6 +16,7 @@ export default function CartPage() {
         </p>
         <CartView />
       </main>
+      <SiteFooter />
     </>
   );
 }

@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
 import ShareCircle from "@/components/ShareCircle";
 import { getCurrentUser } from "@/lib/session";
 import { getDb } from "@/lib/db";
@@ -199,6 +200,7 @@ export default async function AccountPage() {
           </button>
         </form>
       </main>
+      <SiteFooter />
     </>
   );
 }
