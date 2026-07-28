@@ -66,12 +66,17 @@ export default function CartView() {
             className="card"
             style={{ padding: 18, marginBottom: 12, display: "flex", gap: 16, alignItems: "flex-start" }}
           >
-            <div
-              className="thumb"
-              style={{ width: 84, height: 84, aspectRatio: "auto", flexShrink: 0, fontSize: 11, borderRadius: 8 }}
-            >
-              {line.name}
-            </div>
+            <img
+              src={`/designs/${line.slug}.svg`}
+              alt={line.name}
+              width={84}
+              height={84}
+              style={{
+                width: 84, height: 84, flexShrink: 0,
+                borderRadius: 8, objectFit: "cover", background: "#efe4d2",
+              }}
+            />
+
 
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ fontFamily: "var(--serif)", fontSize: 19 }}>{line.name}</div>

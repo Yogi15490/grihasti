@@ -27,6 +27,17 @@ export interface CatalogItem {
   scentOptions: string[];
   /** Editorial copy from designs.ts — the DB holds commerce data, not voice. */
   design?: Design;
+  /** Placeholder illustration until photography lands. See scripts/gen-avatars.mjs. */
+  imageUrl: string;
+}
+
+/**
+ * Product art. Served from our own origin as static SVG — no third-party
+ * avatar CDN, which would be one more thing that can be slow or blocked on an
+ * Indian mobile network during the only three weeks that matter.
+ */
+export function imageFor(slug: string): string {
+  return `/designs/${slug}.svg`;
 }
 
 const designBySlug = new Map(DESIGNS.map((d) => [d.slug, d]));
@@ -54,6 +65,7 @@ function decorate(row: {
     isLow: stockQty > 0 && stockQty <= LOW_STOCK_AT,
     scentOptions: row.scent_options ?? ["Aangan at Dusk", "Sunday Slow"],
     design: designBySlug.get(row.slug),
+    imageUrl: imageFor(row.slug),
   };
 }
 

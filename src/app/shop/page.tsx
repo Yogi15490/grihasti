@@ -54,8 +54,15 @@ export default async function Shop() {
                   opacity: item.isSoldOut ? 0.62 : 1,
                 }}
               >
-                <div className="thumb" style={{ position: "relative" }}>
-                  {item.name}
+                <div className="thumb" style={{ position: "relative", padding: 0 }}>
+                  <img
+                    src={item.imageUrl}
+                    alt={item.name}
+                    width={400}
+                    height={400}
+                    loading="lazy"
+                    style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                  />
                   {item.isSoldOut && (
                     <span
                       style={{

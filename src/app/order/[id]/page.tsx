@@ -43,9 +43,9 @@ export default async function OrderConfirmation({
   if (!order || order.user_id !== user.userId) notFound();
 
   const { rows: items } = await query<{
-    name: string; qty: number; scent: string | null; name_message: string | null;
+    slug: string; name: string; qty: number; scent: string | null; name_message: string | null;
   }>(
-    `select p.name, oi.qty, oi.scent, oi.name_message
+    `select p.slug, p.name, oi.qty, oi.scent, oi.name_message
        from order_items oi join products p on p.id = oi.product_id
       where oi.order_id = $1`,
     [id],
@@ -98,13 +98,20 @@ export default async function OrderConfirmation({
         <div className="card" style={{ padding: 24, marginTop: 24 }}>
           <h2 style={{ fontSize: 22, marginBottom: 14 }}>What you ordered</h2>
           {items.map((it, i) => (
-            <div key={i} style={{ marginBottom: 10 }}>
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <span>{it.name} × {it.qty}</span>
-              </div>
-              <div style={{ color: "var(--sage)", fontSize: 13 }}>
-                {it.scent}
-                {it.name_message ? ` · “${it.name_message}”` : ""}
+            <div key={i} style={{ display: "flex", gap: 12, alignItems: "center", marginBottom: 12 }}>
+              <img
+                src={`/designs/${it.slug}.svg`}
+                alt={it.name}
+                width={56}
+                height={56}
+                style={{ width: 56, height: 56, borderRadius: 8, background: "#efe4d2", flexShrink: 0 }}
+              />
+              <div>
+                <div>{it.name} × {it.qty}</div>
+                <div style={{ color: "var(--sage)", fontSize: 13 }}>
+                  {it.scent}
+                  {it.name_message ? ` · “${it.name_message}”` : ""}
+                </div>
               </div>
             </div>
           ))}

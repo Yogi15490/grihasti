@@ -13,7 +13,8 @@
     "test:unit": "node --experimental-strip-types --test tests/referral.test.ts tests/cart.test.ts",
     "check": "node scripts/check-boundaries.mjs && tsc --noEmit",
     "verify": "npm run check && npm run build && npm test",
-    "migrate": "node scripts/migrate.mjs"
+    "migrate": "node scripts/migrate.mjs",
+    "gen:art": "node scripts/gen-avatars.mjs"
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.5.4",

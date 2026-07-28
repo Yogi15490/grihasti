@@ -32,8 +32,14 @@ export default async function DesignDetail({
 
         <section className="wrap grid grid-2" style={{ paddingBottom: 80, alignItems: "start" }}>
           <div className="card">
-            <div className="thumb" style={{ fontSize: 26 }}>
-              {item.name}
+            <div className="thumb" style={{ padding: 0 }}>
+              <img
+                src={item.imageUrl}
+                alt={item.name}
+                width={400}
+                height={400}
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+              />
             </div>
           </div>
 
