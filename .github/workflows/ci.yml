@@ -105,7 +105,18 @@ jobs:
             exit 0
           fi
 
-          $SSH 'cd /root/grihasti && git pull --ff-only && docker compose up -d --build'
+          # --force-recreate because a stale container holding the fixed
+          # container_name blocks the new one from starting. Compose reports
+          # the name conflict and exits, the OLD container keeps serving, and
+          # the deploy looks like it worked while changing nothing. That cost
+          # several rounds of "the site hasn't changed".
+          $SSH 'cd /root/grihasti && git pull --ff-only && \
+                docker compose up -d --build --force-recreate --remove-orphans'
+
+          # Prove the running container is the commit we just pushed, rather
+          # than trusting that compose did what it said.
+          DEPLOYED=$($SSH 'docker inspect grihasti-web --format "{{.Created}}" 2>/dev/null' || echo "none")
+          echo "Container created at: $DEPLOYED"
 
           echo "Waiting for the container to come up..."
           sleep 15

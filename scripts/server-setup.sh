@@ -107,7 +107,12 @@ fi
 # ── 5. Build and start ───────────────────────────────────────────────────
 step "Building and starting grihasti (this takes a few minutes)"
 cd "$APP_DIR"
-docker compose up -d --build || die "docker compose failed. Check the output above."
+# --force-recreate: a stale container holding the fixed container_name makes
+# compose exit with a name conflict while the OLD container keeps serving, so
+# the deploy appears to succeed and changes nothing.
+docker rm -f grihasti-web >/dev/null 2>&1 || true
+docker compose up -d --build --force-recreate --remove-orphans \
+  || die "docker compose failed. Check the output above."
 
 echo "  Waiting for the app to become healthy..."
 for i in $(seq 1 30); do
