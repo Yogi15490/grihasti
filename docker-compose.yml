@@ -1,0 +1,55 @@
+# Grihasti — production stack.
+#
+# Deliberately does NOT run its own Caddy. The box already has one (from the
+# workrize stack) owning ports 80/443 and terminating Cloudflare origin certs
+# for workrize.in, coldpressery.in and farmsae.com. A second Caddy would fight
+# it for those ports.
+#
+# Instead both stacks join an external network called `edge`, and the existing
+# Caddy reverse-proxies grihasti.in to `grihasti-web:3000`. See DEPLOY.md for
+# the one-time server setup and the Caddyfile block to add.
+
+services:
+  db:
+    image: postgres:16
+    container_name: grihasti-db
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_NAME:-grihasti}
+      POSTGRES_USER: ${DB_USER:-grihasti}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD is required}
+    volumes:
+      - grihasti_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-grihasti}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks: [internal]
+
+  web:
+    build: .
+    container_name: grihasti-web
+    restart: always
+    env_file: .env
+    environment:
+      DATABASE_URL: postgres://${DB_USER:-grihasti}:${DB_PASSWORD}@db:5432/${DB_NAME:-grihasti}
+      # Traffic to the database never leaves the compose network.
+      PGSSL: disable
+      NODE_ENV: production
+    depends_on:
+      db:
+        condition: service_healthy
+    # Migrations run before the server accepts traffic. The runner is
+    # idempotent, so a deploy with no new migrations is a no-op.
+    command: >
+      sh -c "node scripts/migrate.mjs && node server.js"
+    networks: [internal, edge]
+
+volumes:
+  grihasti_pgdata:
+
+networks:
+  internal:
+  edge:
+    external: true

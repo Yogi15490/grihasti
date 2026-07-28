@@ -1,0 +1,81 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: grihasti
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports: [ '5432:5432' ]
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+
+    env:
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/grihasti
+      PGSSL: disable
+      NEXT_TELEMETRY_DISABLED: "1"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - run: npm ci
+
+      # Server/client boundary audit. Catches the class of error that only
+      # surfaces at runtime otherwise — e.g. a non-async export from a
+      # "use server" module, which 500s the page that imports it.
+      - name: Boundary check
+        run: node scripts/check-boundaries.mjs
+
+      - name: Type check
+        run: npx tsc --noEmit
+
+      # The real gate. Everything above passes on code that still fails to
+      # compile; this is what proves the app builds.
+      - name: Build
+        run: npm run build
+
+      - name: Unit + integration tests
+        run: npm test
+
+      # Migrations must apply cleanly to an empty database, and applying them
+      # twice must be a no-op — that is exactly what every deploy does.
+      - name: Migrations apply to a real Postgres
+        run: |
+          node scripts/migrate.mjs
+          node scripts/migrate.mjs
+
+      - name: Ledger idempotency guard still holds
+        run: node scripts/prove-null-hole.mjs
+
+  deploy:
+    needs: test
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to production over SSH
+        env:
+          KEY: ${{ secrets.SERVER_SSH_KEY }}
+          HOST: ${{ secrets.SERVER_HOST }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$KEY" > ~/.ssh/id_deploy
+          chmod 600 ~/.ssh/id_deploy
+          ssh -i ~/.ssh/id_deploy -o StrictHostKeyChecking=accept-new \
+            root@"$HOST" \
+            'cd /root/grihasti && git pull && docker compose up -d --build'

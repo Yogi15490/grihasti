@@ -1,0 +1,18 @@
+node_modules/
+.next/
+out/
+.env
+.env.local
+.env*.local
+*.log
+.DS_Store
+coverage/
+dist/
+
+# Embedded local dev database
+.local-db/
+# Production secrets — server-side only
+# Cloudflare origin certs (if ever added here)
+*.crt
+*.key
+cf-origin-pull-ca.pem

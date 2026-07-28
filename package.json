@@ -1,0 +1,33 @@
+{
+  "name": "grihasti",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Grihasti \u2014 Rakhi commerce + referral portal (grihasti.in)",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "node --experimental-strip-types --test --test-concurrency=1 tests/*.test.ts",
+    "test:unit": "node --experimental-strip-types --test tests/referral.test.ts tests/cart.test.ts",
+    "check": "node scripts/check-boundaries.mjs && tsc --noEmit",
+    "verify": "npm run check && npm run build && npm test",
+    "migrate": "node scripts/migrate.mjs"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "^0.5.4",
+    "next": "^15.0.0",
+    "pg": "^8.22.0",
+    "razorpay": "^2.9.4",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/pg": "^8.20.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "typescript": "^5.6.0"
+  }
+}
