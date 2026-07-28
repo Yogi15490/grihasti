@@ -86,21 +86,23 @@ jobs:
           chmod 600 ~/.ssh/id_deploy
           SSH="ssh -i $HOME/.ssh/id_deploy -o StrictHostKeyChecking=accept-new root@$HOST"
 
-          # Distinguish "server not set up yet" from "deploy genuinely broke".
-          # Without this the job just exits 1 and you have to go digging.
-          if ! $SSH 'test -d /root/grihasti/.git'; then
-            echo "::error::/root/grihasti does not exist on $HOST yet."
+          # "Server not provisioned yet" is not a failure — it's a step the
+          # human hasn't reached. Skipping green keeps a red X meaning
+          # "something is actually broken", which is the only way a red X
+          # stays worth looking at.
+          if ! $SSH 'test -d /root/grihasti/.git' 2>/dev/null; then
+            echo "::notice::Server not set up yet — skipping deploy. Tests passed, build is fine."
             echo ""
-            echo "Tests passed and the build is fine — the server just hasn't been"
-            echo "set up. Run Phase 3 of STEP_BY_STEP.md once, then push again."
-            echo "It is a one-time step: clone the repo, write .env, docker compose up."
-            exit 1
+            echo "  /root/grihasti does not exist on $HOST."
+            echo "  Run Phase 3 of STEP_BY_STEP.md once (clone, .env, docker compose up)."
+            echo "  After that, every push deploys automatically."
+            exit 0
           fi
 
           if ! $SSH 'test -f /root/grihasti/.env'; then
-            echo "::error::/root/grihasti/.env is missing on $HOST."
-            echo "The app cannot start without DB_PASSWORD. See STEP_BY_STEP.md Step 3.6."
-            exit 1
+            echo "::notice::Server has the repo but no .env — skipping deploy."
+            echo "  See STEP_BY_STEP.md Step 3.6. The app needs DB_PASSWORD to start."
+            exit 0
           fi
 
           $SSH 'cd /root/grihasti && git pull --ff-only && docker compose up -d --build'
