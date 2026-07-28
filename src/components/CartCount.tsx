@@ -22,7 +22,7 @@ export default function CartCount() {
   return (
     <Link
       href="/cart"
-      style={{ textDecoration: "none", color: "var(--ember)", whiteSpace: "nowrap" }}
+      style={{ textDecoration: "none", color: "var(--ink)", whiteSpace: "nowrap" }}
     >
       Cart{count > 0 ? ` (${count})` : ""}
     </Link>

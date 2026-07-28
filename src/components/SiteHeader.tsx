@@ -1,17 +1,27 @@
 import Link from "next/link";
-import { getCurrentUser } from "@/lib/session";
+import Lockup from "./Lockup";
 import CartCount from "./CartCount";
+import { getCurrentUser } from "@/lib/session";
 
-/** Shared header. Server component so it can show sign-in state without a flash. */
+/**
+ * Shared header. Server component so sign-in state renders without a flash.
+ *
+ * §6: "the rule as the top border of the site header" — the same device as
+ * the extended shirorekha in the lockup, running the full measure of the page.
+ *
+ * §7: no shadows or blurs. The previous translucent backdrop-blur bar was a
+ * different visual language entirely; a flat Paper ground with a rule is the
+ * brand's own.
+ */
 export default async function SiteHeader() {
   const user = await getCurrentUser().catch(() => null);
 
   return (
     <header
       style={{
-        borderBottom: "1px solid #ece3d3",
-        background: "rgba(244,236,221,.9)",
-        backdropFilter: "blur(8px)",
+        borderTop: "4px solid var(--haldi)",
+        borderBottom: "1px solid var(--sand)",
+        background: "var(--paper)",
         position: "sticky",
         top: 0,
         zIndex: 20,
@@ -23,35 +33,20 @@ export default async function SiteHeader() {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          height: 62,
+          minHeight: 78,
           gap: 16,
+          paddingTop: 12,
+          paddingBottom: 12,
         }}
       >
-        <Link
-          href="/"
-          style={{
-            fontFamily: "var(--serif)",
-            fontSize: 24,
-            letterSpacing: ".02em",
-            textDecoration: "none",
-            color: "var(--ember)",
-          }}
-        >
-          Grihasti
-        </Link>
+        <Lockup href="/" />
 
-        <nav style={{ display: "flex", alignItems: "center", gap: 22, fontSize: 14 }}>
-          <Link href="/shop" style={{ textDecoration: "none", color: "var(--ember)" }}>
-            Collection
-          </Link>
+        <nav style={{ display: "flex", alignItems: "center", gap: 24 }}>
+          <Link href="/shop" className="nav-link">Collection</Link>
           {user ? (
-            <Link href="/account" style={{ textDecoration: "none", color: "var(--ember)" }}>
-              Your circle
-            </Link>
+            <Link href="/account" className="nav-link">Your circle</Link>
           ) : (
-            <Link href="/login" style={{ textDecoration: "none", color: "var(--ember)" }}>
-              Sign in
-            </Link>
+            <Link href="/login" className="nav-link">Sign in</Link>
           )}
           <CartCount />
         </nav>

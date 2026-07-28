@@ -1,22 +1,33 @@
 import Link from "next/link";
+import Lockup from "./Lockup";
 
 /**
- * Site-wide footer. Exists mainly so every page has a route out of it —
- * the landing page shipped without navigation and stranded visitors on a
- * waitlist form while the shop was open.
+ * Site-wide footer, so no page is a dead end.
  *
- * The policy links are placeholders: Razorpay requires those pages live
- * before it will activate an account (see docs/GO_LIVE_ACCOUNTS.md).
+ * §6: opens with the rule, full measure. §2.3: the stacked lockup (rule then
+ * wordmark, no ग) is the form for secondary placements like this one.
+ *
+ * §8 voice: "रोज़ के काम, रोज़ की सुंदरता" sits beside the English rather than
+ * translating it — the guideline is explicit that the two languages sit side
+ * by side without one being a word-for-word rendering of the other.
  */
 export default function SiteFooter() {
   return (
-    <footer style={{ borderTop: "1px solid #ece3d3", marginTop: 40, padding: "40px 0 48px" }}>
-      <div className="wrap">
+    <footer style={{ marginTop: 48 }}>
+      <div className="rule" />
+      <div className="wrap" style={{ padding: "36px 0 48px" }}>
         <div className="grid grid-3" style={{ gap: 28, marginBottom: 28 }}>
           <div>
-            <div style={{ fontFamily: "var(--serif)", fontSize: 24 }}>Grihasti</div>
-            <p style={{ color: "var(--sage)", fontSize: 14, marginTop: 6 }}>
-              Handmade caricature candles for the siblings who&apos;d never say it out loud.
+            <Lockup href={null} compact />
+            <p
+              className="deva-text"
+              lang="hi"
+              style={{ color: "var(--text2)", fontSize: 16, marginTop: 12 }}
+            >
+              रोज़ के काम, रोज़ की सुंदरता।
+            </p>
+            <p style={{ color: "var(--meta)", fontSize: 15, marginTop: 6 }}>
+              Caricature candles for the siblings who&apos;d never say it out loud.
             </p>
           </div>
 
@@ -28,7 +39,7 @@ export default function SiteFooter() {
               ["Your cart", "/cart"],
             ].map(([label, href]) => (
               <div key={href} style={{ marginBottom: 6 }}>
-                <Link href={href} style={{ color: "var(--ember)", textDecoration: "none", fontSize: 14 }}>
+                <Link href={href} style={{ color: "var(--ink)", textDecoration: "none", fontSize: 16 }}>
                   {label}
                 </Link>
               </div>
@@ -42,7 +53,7 @@ export default function SiteFooter() {
               ["Your circle & cashback", "/account"],
             ].map(([label, href]) => (
               <div key={href} style={{ marginBottom: 6 }}>
-                <Link href={href} style={{ color: "var(--ember)", textDecoration: "none", fontSize: 14 }}>
+                <Link href={href} style={{ color: "var(--ink)", textDecoration: "none", fontSize: 16 }}>
                   {label}
                 </Link>
               </div>
@@ -52,13 +63,13 @@ export default function SiteFooter() {
 
         <div
           style={{
-            borderTop: "1px solid #f2ebdd", paddingTop: 18,
+            borderTop: "1px solid var(--sand)", paddingTop: 18,
             display: "flex", justifyContent: "space-between",
-            flexWrap: "wrap", gap: 10, color: "var(--sage)", fontSize: 13,
+            flexWrap: "wrap", gap: 10, color: "var(--meta)", fontSize: 13,
           }}
         >
-          <span className="serif-italic">Made for you, by hand.</span>
-          <span>Order by 21 August for delivery before Raksha Bandhan.</span>
+          <span className="label">Made by hand, in small batches</span>
+          <span className="label">Order by 21 August · Raksha Bandhan 28 August</span>
         </div>
       </div>
     </footer>

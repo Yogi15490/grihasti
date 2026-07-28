@@ -41,13 +41,13 @@ export default function CartView() {
     start(() => { refresh(); });
   }
 
-  if (loading) return <p style={{ color: "var(--sage)" }}>Loading your cart…</p>;
+  if (loading) return <p style={{ color: "var(--meta)" }}>Loading your cart…</p>;
 
   if (!lines.length) {
     return (
       <div className="card" style={{ padding: 32, textAlign: "center" }}>
         <div style={{ fontFamily: "var(--serif)", fontSize: 24 }}>Your cart is empty.</div>
-        <p style={{ color: "var(--sage)", margin: "8px 0 20px" }}>
+        <p style={{ color: "var(--meta)", margin: "8px 0 20px" }}>
           Fourteen siblings are waiting to be picked.
         </p>
         <Link href="/shop" className="btn">Browse the collection</Link>
@@ -73,14 +73,14 @@ export default function CartView() {
               height={84}
               style={{
                 width: 84, height: 84, flexShrink: 0,
-                borderRadius: 8, objectFit: "cover", background: "#efe4d2",
+                borderRadius: 0, objectFit: "cover", background: "var(--band)",
               }}
             />
 
 
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ fontFamily: "var(--serif)", fontSize: 19 }}>{line.name}</div>
-              <div style={{ color: "var(--sage)", fontSize: 13 }}>{line.scent}</div>
+              <div style={{ color: "var(--meta)", fontSize: 13 }}>{line.scent}</div>
               {line.nameMessage && (
                 <div className="serif-italic" style={{ fontSize: 14, marginTop: 2 }}>
                   “{line.nameMessage}”
@@ -88,7 +88,7 @@ export default function CartView() {
               )}
 
               {unavailable && (
-                <div style={{ color: "var(--clay)", fontSize: 13, marginTop: 6 }}>
+                <div style={{ color: "var(--madder)", fontSize: 13, marginTop: 6 }}>
                   {priced!.stockQty === 0
                     ? "Sold out — please remove to continue."
                     : `Only ${priced!.stockQty} left — reduce the quantity to continue.`}
@@ -110,8 +110,8 @@ export default function CartView() {
                   onClick={() => remove(i)}
                   style={{
                     background: "none", border: "none", cursor: "pointer",
-                    color: "var(--sage)", fontSize: 13, textDecoration: "underline",
-                    fontFamily: "var(--sans)",
+                    color: "var(--meta)", fontSize: 13, textDecoration: "underline",
+                    fontFamily: "var(--mono)",
                   }}
                 >
                   Remove
@@ -133,12 +133,12 @@ export default function CartView() {
             ₹{(quote?.subtotalInr ?? 0).toLocaleString("en-IN")}
           </span>
         </div>
-        <p style={{ color: "var(--sage)", fontSize: 13, marginTop: 4 }}>
+        <p style={{ color: "var(--meta)", fontSize: 13, marginTop: 4 }}>
           Inclusive of GST. Shipping is on us.
         </p>
 
         {quote?.hasProblems ? (
-          <p style={{ color: "var(--clay)", fontSize: 14, marginTop: 14 }}>
+          <p style={{ color: "var(--madder)", fontSize: 14, marginTop: 14 }}>
             Please fix the items flagged above before checking out.
           </p>
         ) : (
@@ -152,7 +152,7 @@ export default function CartView() {
         )}
 
         {quote && !quote.signedIn && (
-          <p style={{ color: "var(--sage)", fontSize: 13, marginTop: 12, textAlign: "center" }}>
+          <p style={{ color: "var(--meta)", fontSize: 13, marginTop: 12, textAlign: "center" }}>
             You&apos;ll sign in at checkout — that&apos;s also how your cashback gets tracked.
           </p>
         )}

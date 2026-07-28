@@ -40,7 +40,7 @@ export default function AddToCart({
 
   return (
     <div>
-      <label style={{ fontSize: 13, color: "var(--sage)" }}>Scent</label>
+      <label style={{ fontSize: 13, color: "var(--meta)" }}>Scent</label>
       <select
         className="field"
         value={scent}
@@ -52,7 +52,7 @@ export default function AddToCart({
         ))}
       </select>
 
-      <label style={{ fontSize: 13, color: "var(--sage)", display: "block", marginTop: 16 }}>
+      <label style={{ fontSize: 13, color: "var(--meta)", display: "block", marginTop: 16 }}>
         Name / short message on the card (optional)
       </label>
       <input
@@ -61,13 +61,13 @@ export default function AddToCart({
         maxLength={60}
         value={nameMessage}
         onChange={(e) => { setNameMessage(e.target.value); setAdded(false); }}
-        placeholder="e.g. Happy Rakhi, Rohan!"
+        placeholder="e.g. For Rohan, from your didi"
       />
-      <div style={{ fontSize: 12, color: "var(--sage)", marginTop: 4 }}>
+      <div style={{ fontSize: 12, color: "var(--meta)", marginTop: 4 }}>
         {60 - nameMessage.length} characters left
       </div>
 
-      <label style={{ fontSize: 13, color: "var(--sage)", display: "block", marginTop: 16 }}>
+      <label style={{ fontSize: 13, color: "var(--meta)", display: "block", marginTop: 16 }}>
         Quantity
       </label>
       <select
@@ -82,7 +82,7 @@ export default function AddToCart({
       </select>
 
       <button className="btn" style={{ marginTop: 20, width: "100%" }} onClick={add}>
-        {added ? "Added ✓ — add another?" : "Add to cart"}
+        {added ? "Added — add another?" : "Add to cart"}
       </button>
 
       {added && (
@@ -95,7 +95,7 @@ export default function AddToCart({
         </Link>
       )}
 
-      <p style={{ fontSize: 12, color: "var(--sage)", marginTop: 12 }}>
+      <p style={{ fontSize: 12, color: "var(--meta)", marginTop: 12 }}>
         A keepsake, made to be treasured. Order by 21 Aug for guaranteed Rakhi delivery.
       </p>
     </div>

@@ -28,7 +28,7 @@ export default async function Shop() {
             <h1 style={{ fontSize: 44, margin: "14px 0 8px" }}>
               Find the one that&apos;s so your sibling.
             </h1>
-            <p style={{ color: "var(--sage)" }}>
+            <p style={{ color: "var(--meta)" }}>
               Limited quantities · handmade in small batches · order by 21 Aug for Rakhi.
             </p>
           </div>
@@ -67,9 +67,9 @@ export default async function Shop() {
                   {item.isSoldOut && (
                     <span
                       style={{
-                        position: "absolute", top: 12, right: 12, background: "var(--ember)",
-                        color: "var(--cream)", fontSize: 11, letterSpacing: ".12em",
-                        textTransform: "uppercase", padding: "4px 10px", borderRadius: 100,
+                        position: "absolute", top: 12, right: 12, background: "var(--ink)",
+                        color: "var(--paper)", fontSize: 11, letterSpacing: ".12em",
+                        textTransform: "uppercase", padding: "4px 10px", borderRadius: 0,
                       }}
                     >
                       Sold out
@@ -78,7 +78,7 @@ export default async function Shop() {
                 </div>
                 <div style={{ padding: 16 }}>
                   <div style={{ fontFamily: "var(--serif)", fontSize: 19 }}>{item.name}</div>
-                  <div style={{ color: "var(--sage)", fontSize: 13, minHeight: 34 }}>
+                  <div style={{ color: "var(--meta)", fontSize: 13, minHeight: 34 }}>
                     {item.design?.persona ?? ""}
                   </div>
                   <div
@@ -102,9 +102,9 @@ export default async function Shop() {
           </div>
 
           {!dbDown && items.length === 0 && (
-            <div className="wrap" style={{ textAlign: "center", color: "var(--sage)" }}>
+            <div className="wrap" style={{ textAlign: "center", color: "var(--meta)" }}>
               The collection goes live shortly.{" "}
-              <Link href="/" style={{ color: "var(--clay)" }}>
+              <Link href="/" style={{ color: "var(--haldi)" }}>
                 Join the early list
               </Link>{" "}
               for first pick.

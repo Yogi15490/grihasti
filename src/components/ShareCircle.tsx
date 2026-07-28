@@ -13,7 +13,7 @@ export default function ShareCircle({ shareUrl }: { shareUrl: string }) {
   const [copied, setCopied] = useState(false);
 
   const message =
-    `I just got my sibling a caricature candle from Grihasti for Rakhi 🎁 ` +
+    `I just got my sibling a caricature candle from Grihasti for Rakhi ` +
     `You get 5% back on yours, and so do I. Only 5 people can join through me: ${shareUrl}`;
 
   async function copy() {
@@ -27,12 +27,12 @@ export default function ShareCircle({ shareUrl }: { shareUrl: string }) {
   }
 
   return (
-    <div className="card" style={{ padding: 26, marginTop: 24, background: "#fff8ef" }}>
+    <div className="card" style={{ padding: 26, marginTop: 24, background: "var(--band)" }}>
       <p className="eyebrow">Your circle</p>
       <h2 style={{ fontSize: 26, margin: "10px 0 6px" }}>
         Bring five people in. Earn on every order they ever place.
       </h2>
-      <p style={{ color: "var(--sage)", fontSize: 14, marginBottom: 16 }}>
+      <p style={{ color: "var(--meta)", fontSize: 14, marginBottom: 16 }}>
         You get 5% back on your own orders, and a share of what your circle spends —
         for as long as they keep shopping. Five invites, that&apos;s it.
       </p>
@@ -40,7 +40,7 @@ export default function ShareCircle({ shareUrl }: { shareUrl: string }) {
       <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
         <input className="field" style={{ flex: 1, minWidth: 220 }} readOnly value={shareUrl} />
         <button className="btn" onClick={copy}>
-          {copied ? "Copied ✓" : "Copy link"}
+          {copied ? "Copied" : "Copy link"}
         </button>
       </div>
 

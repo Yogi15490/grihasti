@@ -67,7 +67,7 @@ export default async function OrderConfirmation({
             <h1 style={{ fontSize: 40, margin: "12px 0 8px" }}>
               It&apos;s on its way to being made.
             </h1>
-            <p style={{ color: "var(--sage)" }}>
+            <p style={{ color: "var(--meta)" }}>
               We&apos;ve emailed your receipt
               {order.gst_invoice_no ? ` · Invoice ${order.gst_invoice_no}` : ""}.
             </p>
@@ -76,7 +76,7 @@ export default async function OrderConfirmation({
           <>
             <p className="eyebrow">Payment pending</p>
             <h1 style={{ fontSize: 40, margin: "12px 0 8px" }}>Almost there.</h1>
-            <p style={{ color: "var(--sage)" }}>
+            <p style={{ color: "var(--meta)" }}>
               We&apos;ve held your order. It&apos;s confirmed once payment completes —
               you&apos;ll get an email the moment it does.
             </p>
@@ -86,7 +86,7 @@ export default async function OrderConfirmation({
         {order.fulfilment_hold && (
           <div
             className="card"
-            style={{ padding: 18, marginTop: 20, borderColor: "var(--clay)", background: "#fff5f0" }}
+            style={{ padding: 18, marginTop: 20, borderColor: "var(--haldi)", background: "var(--band)" }}
           >
             <strong>We&apos;ve hit a snag with stock on this one.</strong>
             <p style={{ fontSize: 14, marginTop: 6 }}>
@@ -105,11 +105,11 @@ export default async function OrderConfirmation({
                 alt={it.name}
                 width={56}
                 height={56}
-                style={{ width: 56, height: 56, borderRadius: 8, background: "#efe4d2", flexShrink: 0 }}
+                style={{ width: 56, height: 56, borderRadius: 0, background: "var(--band)", flexShrink: 0 }}
               />
               <div>
                 <div>{it.name} × {it.qty}</div>
-                <div style={{ color: "var(--sage)", fontSize: 13 }}>
+                <div style={{ color: "var(--meta)", fontSize: 13 }}>
                   {it.scent}
                   {it.name_message ? ` · “${it.name_message}”` : ""}
                 </div>
@@ -117,12 +117,12 @@ export default async function OrderConfirmation({
             </div>
           ))}
 
-          <hr style={{ border: "none", borderTop: "1px solid #ece3d3", margin: "14px 0" }} />
+          <hr style={{ border: "none", borderTop: "1px solid var(--sand)", margin: "14px 0" }} />
           <div style={{ display: "flex", justifyContent: "space-between", fontSize: 14 }}>
             <span>Order total</span><span>₹{gross.toLocaleString("en-IN")}</span>
           </div>
           {pointsUsed > 0 && (
-            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 14, color: "var(--brass)" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 14, color: "var(--haldi)" }}>
               <span>Cashback used</span><span>−₹{pointsUsed.toLocaleString("en-IN")}</span>
             </div>
           )}
@@ -146,7 +146,7 @@ export default async function OrderConfirmation({
         )}
 
         <div style={{ marginTop: 28, textAlign: "center" }}>
-          <Link href="/account" style={{ color: "var(--clay)" }}>
+          <Link href="/account" style={{ color: "var(--haldi)" }}>
             See all your orders and cashback →
           </Link>
         </div>

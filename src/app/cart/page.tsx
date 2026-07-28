@@ -11,7 +11,7 @@ export default function CartPage() {
       <SiteHeader />
       <main className="wrap" style={{ padding: "40px 0 80px", maxWidth: 760 }}>
         <h1 style={{ fontSize: 36, marginBottom: 6 }}>Your cart</h1>
-        <p style={{ color: "var(--sage)", marginBottom: 24 }}>
+        <p style={{ color: "var(--meta)", marginBottom: 24 }}>
           Order by 21 Aug for guaranteed delivery before Raksha Bandhan.
         </p>
         <CartView />

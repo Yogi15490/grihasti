@@ -16,3 +16,5 @@ dist/
 *.crt
 *.key
 cf-origin-pull-ca.pem
+
+# Brand source assets live in assets/; public/ holds the shipped copies

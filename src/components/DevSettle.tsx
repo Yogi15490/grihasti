@@ -21,10 +21,10 @@ export default function DevSettle({ orderId }: { orderId: string }) {
       className="card"
       style={{ padding: 18, marginTop: 20, borderStyle: "dashed", background: "transparent" }}
     >
-      <p style={{ fontSize: 12, letterSpacing: ".12em", textTransform: "uppercase", color: "var(--brass)" }}>
+      <p style={{ fontSize: 12, letterSpacing: ".12em", textTransform: "uppercase", color: "var(--haldi)" }}>
         Development only
       </p>
-      <p style={{ fontSize: 14, margin: "6px 0 12px", color: "var(--sage)" }}>
+      <p style={{ fontSize: 14, margin: "6px 0 12px", color: "var(--meta)" }}>
         No payment provider is connected yet. Settle this order to walk the rest of
         the flow — cashback, invoice, dispatch.
       </p>
@@ -41,7 +41,7 @@ export default function DevSettle({ orderId }: { orderId: string }) {
       >
         {pending ? "Settling…" : "Mark as paid (dev)"}
       </button>
-      {error && <p style={{ color: "var(--clay)", fontSize: 13, marginTop: 10 }}>{error}</p>}
+      {error && <p style={{ color: "var(--haldi)", fontSize: 13, marginTop: 10 }}>{error}</p>}
     </div>
   );
 }

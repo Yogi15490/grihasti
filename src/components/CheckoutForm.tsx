@@ -61,7 +61,7 @@ export default function CheckoutForm() {
     });
   }
 
-  if (loading) return <p style={{ color: "var(--sage)" }}>Loading…</p>;
+  if (loading) return <p style={{ color: "var(--meta)" }}>Loading…</p>;
 
   if (!lines.length) {
     return (
@@ -78,7 +78,7 @@ export default function CheckoutForm() {
     extra: Record<string, unknown> = {},
   ) => (
     <div style={{ marginBottom: 14 }}>
-      <label style={{ fontSize: 13, color: "var(--sage)" }}>{label}</label>
+      <label style={{ fontSize: 13, color: "var(--meta)" }}>{label}</label>
       <input
         className="field"
         style={{ marginTop: 5 }}
@@ -99,7 +99,7 @@ export default function CheckoutForm() {
         <div className="grid grid-2" style={{ gap: 14 }}>
           {field("city", "City")}
           <div style={{ marginBottom: 14 }}>
-            <label style={{ fontSize: 13, color: "var(--sage)" }}>State</label>
+            <label style={{ fontSize: 13, color: "var(--meta)" }}>State</label>
             <select
               className="field"
               style={{ marginTop: 5 }}
@@ -119,7 +119,7 @@ export default function CheckoutForm() {
       {maxPoints > 0 && (
         <div className="card" style={{ padding: 24, marginBottom: 20 }}>
           <h2 style={{ fontSize: 24, marginBottom: 4 }}>Use your cashback</h2>
-          <p style={{ color: "var(--sage)", fontSize: 14, marginBottom: 14 }}>
+          <p style={{ color: "var(--meta)", fontSize: 14, marginBottom: 14 }}>
             You have <strong>₹{maxPoints.toLocaleString("en-IN")}</strong> available.
             Use as much or as little as you like.
           </p>
@@ -129,15 +129,15 @@ export default function CheckoutForm() {
             max={Math.floor(maxPoints)}
             value={applied}
             onChange={(e) => setPoints(Number(e.target.value))}
-            style={{ width: "100%", accentColor: "var(--clay)" }}
+            style={{ width: "100%", accentColor: "var(--haldi)" }}
           />
-          <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13, color: "var(--sage)" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13, color: "var(--meta)" }}>
             <span>₹0</span>
             <span>Using ₹{applied.toLocaleString("en-IN")}</span>
             <span>₹{Math.floor(maxPoints).toLocaleString("en-IN")}</span>
           </div>
           {applied > 0 && applied === subtotal && (
-            <p style={{ fontSize: 13, color: "var(--brass)", marginTop: 10 }}>
+            <p style={{ fontSize: 13, color: "var(--haldi)", marginTop: 10 }}>
               Your points cover the whole order — nothing to pay.
             </p>
           )}
@@ -153,16 +153,16 @@ export default function CheckoutForm() {
           </div>
         ))}
 
-        <hr style={{ border: "none", borderTop: "1px solid #ece3d3", margin: "14px 0" }} />
+        <hr style={{ border: "none", borderTop: "1px solid var(--sand)", margin: "14px 0" }} />
 
         <div style={{ display: "flex", justifyContent: "space-between", fontSize: 14 }}>
           <span>Subtotal</span><span>₹{subtotal.toLocaleString("en-IN")}</span>
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", fontSize: 14, marginTop: 4 }}>
-          <span>Shipping</span><span style={{ color: "var(--sage)" }}>Free</span>
+          <span>Shipping</span><span style={{ color: "var(--meta)" }}>Free</span>
         </div>
         {applied > 0 && (
-          <div style={{ display: "flex", justifyContent: "space-between", fontSize: 14, marginTop: 4, color: "var(--brass)" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", fontSize: 14, marginTop: 4, color: "var(--haldi)" }}>
             <span>Cashback applied</span><span>−₹{applied.toLocaleString("en-IN")}</span>
           </div>
         )}
@@ -173,7 +173,7 @@ export default function CheckoutForm() {
         </div>
 
         {error && (
-          <p style={{ color: "var(--clay)", fontSize: 14, marginTop: 14 }}>{error}</p>
+          <p style={{ color: "var(--haldi)", fontSize: 14, marginTop: 14 }}>{error}</p>
         )}
 
         <button
@@ -185,7 +185,7 @@ export default function CheckoutForm() {
           {pending ? "Placing your order…" : cashDue === 0 ? "Place order" : `Pay ₹${cashDue.toLocaleString("en-IN")}`}
         </button>
 
-        <p style={{ fontSize: 12, color: "var(--sage)", marginTop: 12, textAlign: "center" }}>
+        <p style={{ fontSize: 12, color: "var(--meta)", marginTop: 12, textAlign: "center" }}>
           You&apos;ll earn 5% back on this order, and so will whoever invited you.
         </p>
       </div>

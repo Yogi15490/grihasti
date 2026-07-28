@@ -1,34 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="drama-queen placeholder illustration">
-  <defs>
-    <linearGradient id="bg-drama-queen" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#F3E4E1"/>
-      <stop offset="1" stop-color="#F4ECDD"/>
-    </linearGradient>
-  </defs>
-  <rect width="400" height="400" fill="url(#bg-drama-queen)"/>
-  <ellipse cx="200" cy="352" rx="96" ry="16" fill="#8B9A7B" opacity=".18"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="drama-queen">
+  <rect width="400" height="400" fill="#F1EADB"/>
+  <rect x="0" y="0" width="400" height="8" fill="#C98A2B"/>
+  <rect x="104" y="346" width="192" height="6" fill="#DCD2BE"/>
   
-    <!-- flame -->
-    <g>
-      <ellipse cx="200" cy="120" rx="26" ry="34" fill="#E8A13A" opacity=".22"/>
-      <path d="M200 92 q17 22 17 36 a17 17 0 0 1 -34 0 q0 -14 17 -36 Z" fill="#E8A13A"/>
-      <path d="M200 108 q8 12 8 20 a8 8 0 0 1 -16 0 q0 -8 8 -20 Z" fill="#F4ECDD" opacity=".85"/>
-    </g>
-    <!-- wick -->
-    <path d="M200 128 v14" stroke="#3B322C" stroke-width="4" stroke-linecap="round"/>
-    <!-- body -->
-    <path d="M136 150 h128 a10 10 0 0 1 10 10 v168 a10 10 0 0 1 -10 10 h-128
-             a10 10 0 0 1 -10 -10 v-168 a10 10 0 0 1 10 -10 Z" fill="#C25E7A"/>
-    <!-- melt highlight -->
-    <path d="M136 150 h128 a10 10 0 0 1 10 10 v12 q-32 12 -74 12 t-74 -12 v-12
-             a10 10 0 0 1 10 -10 Z" fill="#fff" opacity=".18"/>
-    <!-- face -->
-    <g fill="#3B322C">
+    <path d="M200 92 q17 22 17 36 a17 17 0 0 1 -34 0 q0 -14 17 -36 Z" fill="#C98A2B"/>
+    <path d="M200 108 q8 12 8 20 a8 8 0 0 1 -16 0 q0 -8 8 -20 Z" fill="#F6F1E7"/>
+    <path d="M200 128 v14" stroke="#1C1A17" stroke-width="4"/>
+    <rect x="126" y="150" width="148" height="188" fill="#9C4A5A"/>
+    <g fill="#1C1A17">
       <circle cx="177" cy="232" r="6"/>
       <circle cx="223" cy="232" r="6"/>
     </g>
-    <path d="M182 252 q18 15 36 0" stroke="#3B322C" stroke-width="5" fill="none" stroke-linecap="round"/>
-  <g fill="#E8A13A">
+    <path d="M182 252 q18 15 36 0" stroke="#1C1A17" stroke-width="5" fill="none"/>
+  <g fill="#C98A2B">
         <path d="M128 137 L132.16 145.84 L141 150 L132.16 154.16 L128 163 L123.84 154.16 L115 150 L123.84 145.84 Z"/><path d="M278 166 L281.2 172.8 L288 176 L281.2 179.2 L278 186 L274.8 179.2 L268 176 L274.8 172.8 Z"/><path d="M258 292 L260.56 297.44 L266 300 L260.56 302.56 L258 308 L255.44 302.56 L250 300 L255.44 297.44 Z"/><path d="M140 281 L142.88 287.12 L149 290 L142.88 292.88 L140 299 L137.12 292.88 L131 290 L137.12 287.12 Z"/>
       </g>
 </svg>

@@ -41,7 +41,7 @@ export default function SiblingPoll() {
   if (done) {
     return (
       <div className="card" style={{ padding: 32, textAlign: "center" }}>
-        <h2 style={{ fontSize: 30 }}>You&apos;re on the list. 🎉</h2>
+        <h2 style={{ fontSize: 30 }}>You're on the list.</h2>
         <p style={{ marginTop: 10 }}>
           We&apos;ll ping you the second the Bhai-Behen Collection drops. Want first pick
           before the popular ones sell out? Share your link — the more siblings you bring,
@@ -54,7 +54,7 @@ export default function SiblingPoll() {
   return (
     <div>
       <h2 style={{ fontSize: 30, marginBottom: 6 }}>Not buying today?</h2>
-      <p className="serif-italic" style={{ color: "var(--clay)", marginBottom: 20 }}>
+      <p className="serif-italic" style={{ color: "var(--haldi)", marginBottom: 20 }}>
         Tell us which one is your sibling and we&apos;ll hold the thought — plus warn you
         before it sells out.
       </p>
@@ -68,12 +68,12 @@ export default function SiblingPoll() {
             className="card"
             style={{
               padding: 14, textAlign: "left", cursor: "pointer",
-              borderColor: choice === d.slug ? "var(--clay)" : undefined,
-              outline: choice === d.slug ? "2px solid var(--clay)" : "none",
+              borderColor: choice === d.slug ? "var(--haldi)" : undefined,
+              outline: choice === d.slug ? "2px solid var(--haldi)" : "none",
             }}
           >
             <div style={{ fontFamily: "var(--serif)", fontSize: 18 }}>{d.name}</div>
-            <div style={{ fontSize: 13, color: "var(--sage)" }}>{d.persona}</div>
+            <div style={{ fontSize: 13, color: "var(--meta)" }}>{d.persona}</div>
           </button>
         ))}
       </div>
@@ -98,7 +98,7 @@ export default function SiblingPoll() {
         <label
           style={{
             display: "flex", gap: 8, alignItems: "flex-start",
-            marginTop: 12, fontSize: 13, color: "var(--sage)", cursor: "pointer",
+            marginTop: 12, fontSize: 13, color: "var(--meta)", cursor: "pointer",
           }}
         >
           <input
@@ -112,8 +112,8 @@ export default function SiblingPoll() {
             the collection goes live — never shared, unsubscribe anytime.
           </span>
         </label>
-        {error && <p style={{ color: "var(--clay)", marginTop: 10, fontSize: 14 }}>{error}</p>}
-        {ref && <p style={{ color: "var(--sage)", marginTop: 8, fontSize: 12 }}>Referred by a friend ✓</p>}
+        {error && <p style={{ color: "var(--haldi)", marginTop: 10, fontSize: 14 }}>{error}</p>}
+        {ref && <p style={{ color: "var(--meta)", marginTop: 8, fontSize: 12 }}>Referred by a friend</p>}
       </div>
     </div>
   );

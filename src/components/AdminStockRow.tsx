@@ -29,7 +29,7 @@ export default function AdminStockRow({ item }: { item: StockItem }) {
     >
       <div style={{ flex: 1, minWidth: 180 }}>
         <div style={{ fontSize: 15 }}>{item.name}</div>
-        <div style={{ color: item.isSoldOut ? "var(--clay)" : "var(--sage)", fontSize: 12 }}>
+        <div style={{ color: item.isSoldOut ? "var(--madder)" : "var(--meta)", fontSize: 12 }}>
           {item.isSoldOut ? "Sold out" : item.isLow ? `Low · ${item.stockQty} left` : `${item.stockQty} in stock`}
           {" · "}{item.sold} sold
         </div>
@@ -54,7 +54,7 @@ export default function AdminStockRow({ item }: { item: StockItem }) {
         <button className="btn btn-ghost" disabled={pending}>Set</button>
       </form>
 
-      {note && <span style={{ fontSize: 12, color: "var(--brass)", width: "100%" }}>{note}</span>}
+      {note && <span style={{ fontSize: 12, color: "var(--haldi)", width: "100%" }}>{note}</span>}
     </div>
   );
 }

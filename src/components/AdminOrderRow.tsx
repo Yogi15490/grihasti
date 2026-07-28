@@ -41,7 +41,7 @@ export default function AdminOrderRow({ order }: { order: OrderSummary }) {
       style={{
         padding: 16,
         marginBottom: 10,
-        borderColor: order.fulfilmentHold && order.status !== "refunded" ? "var(--clay)" : undefined,
+        borderColor: order.fulfilmentHold && order.status !== "refunded" ? "var(--haldi)" : undefined,
       }}
     >
       <div
@@ -53,7 +53,7 @@ export default function AdminOrderRow({ order }: { order: OrderSummary }) {
             <span style={{ textTransform: "capitalize" }}>{order.status}</span>
             {order.invoiceNo ? ` · ${order.invoiceNo}` : ""}
           </div>
-          <div style={{ color: "var(--sage)", fontSize: 12, wordBreak: "break-all" }}>
+          <div style={{ color: "var(--meta)", fontSize: 12, wordBreak: "break-all" }}>
             {order.customerEmail} · {order.itemCount} item{order.itemCount === 1 ? "" : "s"}
             {order.tracking ? ` · ${order.tracking}` : ""}
           </div>
@@ -61,7 +61,7 @@ export default function AdminOrderRow({ order }: { order: OrderSummary }) {
         <div style={{ textAlign: "right", whiteSpace: "nowrap" }}>
           <div className="price" style={{ fontSize: 18 }}>{inr(order.grossTotalInr)}</div>
           {order.pointsRedeemedInr > 0 && (
-            <div style={{ color: "var(--brass)", fontSize: 12 }}>
+            <div style={{ color: "var(--haldi)", fontSize: 12 }}>
               {inr(order.pointsRedeemedInr)} points
             </div>
           )}
@@ -69,11 +69,11 @@ export default function AdminOrderRow({ order }: { order: OrderSummary }) {
       </div>
 
       {order.holdReason && (
-        <p style={{ color: "var(--clay)", fontSize: 13, marginTop: 8 }}>{order.holdReason}</p>
+        <p style={{ color: "var(--haldi)", fontSize: 13, marginTop: 8 }}>{order.holdReason}</p>
       )}
 
       {open && (
-        <div style={{ marginTop: 14, borderTop: "1px solid #f2ebdd", paddingTop: 14 }}>
+        <div style={{ marginTop: 14, borderTop: "1px solid var(--sand)", paddingTop: 14 }}>
           {order.status === "paid" && !order.fulfilmentHold && (
             <form
               action={(fd) => { fd.set("orderId", order.orderId); run(dispatchOrderAction, fd); }}
@@ -101,17 +101,17 @@ export default function AdminOrderRow({ order }: { order: OrderSummary }) {
               <button
                 className="btn btn-ghost"
                 disabled={pending}
-                style={{ borderColor: "var(--clay)", color: "var(--clay)" }}
+                style={{ borderColor: "var(--haldi)", color: "var(--haldi)" }}
               >
                 {order.fulfilmentHold ? "Refund (oversold)" : "Refund"}
               </button>
-              <span style={{ color: "var(--sage)", fontSize: 12, marginLeft: 10 }}>
+              <span style={{ color: "var(--meta)", fontSize: 12, marginLeft: 10 }}>
                 Reverses all cashback, returns points, restocks.
               </span>
             </form>
           )}
 
-          {note && <p style={{ fontSize: 13, marginTop: 10, color: "var(--brass)" }}>{note}</p>}
+          {note && <p style={{ fontSize: 13, marginTop: 10, color: "var(--haldi)" }}>{note}</p>}
         </div>
       )}
     </div>

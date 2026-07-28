@@ -63,7 +63,7 @@ export default function LoginForm() {
   if (step === "email") {
     return (
       <div className="card" style={{ padding: 24 }}>
-        <label style={{ fontSize: 13, color: "var(--sage)" }}>Email address</label>
+        <label style={{ fontSize: 13, color: "var(--meta)" }}>Email address</label>
         <input
           className="field"
           style={{ marginTop: 6 }}
@@ -74,7 +74,7 @@ export default function LoginForm() {
           onKeyDown={(e) => e.key === "Enter" && email && requestCode()}
           placeholder="you@example.com"
         />
-        {error && <p style={{ color: "var(--clay)", fontSize: 14, marginTop: 10 }}>{error}</p>}
+        {error && <p style={{ color: "var(--madder)", fontSize: 14, marginTop: 10 }}>{error}</p>}
         <button
           className="btn"
           style={{ marginTop: 16, width: "100%" }}
@@ -96,18 +96,18 @@ export default function LoginForm() {
       {devCode && (
         <div
           style={{
-            border: "1px dashed var(--brass)", borderRadius: 8,
+            border: "1px dashed var(--haldi)", borderRadius: 0,
             padding: "10px 14px", marginBottom: 14, fontSize: 13,
           }}
         >
           <strong>Local mode</strong> — no email provider connected, so here&apos;s your
           code: <strong style={{ letterSpacing: ".15em" }}>{devCode}</strong>
-          <div style={{ color: "var(--sage)", marginTop: 2 }}>
+          <div style={{ color: "var(--meta)", marginTop: 2 }}>
             It&apos;s filled in below. This never happens in production.
           </div>
         </div>
       )}
-      <label style={{ fontSize: 13, color: "var(--sage)" }}>Your code</label>
+      <label style={{ fontSize: 13, color: "var(--meta)" }}>Your code</label>
       <input
         className="field"
         style={{ marginTop: 6, fontSize: 22, letterSpacing: ".4em", textAlign: "center" }}
@@ -118,7 +118,7 @@ export default function LoginForm() {
         onChange={(e) => setCode(e.target.value.replace(/\D/g, ""))}
         onKeyDown={(e) => e.key === "Enter" && code.length === 6 && verify()}
       />
-      {error && <p style={{ color: "var(--clay)", fontSize: 14, marginTop: 10 }}>{error}</p>}
+      {error && <p style={{ color: "var(--madder)", fontSize: 14, marginTop: 10 }}>{error}</p>}
       <button
         className="btn"
         style={{ marginTop: 16, width: "100%" }}
@@ -131,8 +131,8 @@ export default function LoginForm() {
         onClick={() => { setStep("email"); setCode(""); setError(null); }}
         style={{
           background: "none", border: "none", cursor: "pointer", marginTop: 14,
-          color: "var(--sage)", fontSize: 13, textDecoration: "underline",
-          fontFamily: "var(--sans)", width: "100%",
+          color: "var(--meta)", fontSize: 13, textDecoration: "underline",
+          fontFamily: "var(--mono)", width: "100%",
         }}
       >
         Use a different email

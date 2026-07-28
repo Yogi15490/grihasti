@@ -17,7 +17,7 @@ export default async function CheckoutPage() {
       <SiteHeader />
       <main className="wrap" style={{ padding: "40px 0 80px", maxWidth: 720 }}>
         <h1 style={{ fontSize: 36, marginBottom: 6 }}>Checkout</h1>
-        <p style={{ color: "var(--sage)", marginBottom: 24 }}>
+        <p style={{ color: "var(--meta)", marginBottom: 24 }}>
           Signed in as {user.email}
         </p>
         <CheckoutForm />

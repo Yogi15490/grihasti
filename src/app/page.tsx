@@ -36,48 +36,65 @@ export default async function Home() {
     <>
       <SiteHeader />
       <main>
-        {/* ── Hero ─────────────────────────────────────────────────── */}
-        <section style={{ padding: "64px 0 36px", textAlign: "center" }}>
+        {/* ── Hero ─────────────────────────────────────────────────────
+            §1 Devanagari-first: the Hindi line leads, set in Yatra One at
+            display size (§5 permits it above ~32px). §8: the two languages
+            sit side by side, neither translating the other word for word. */}
+        <section style={{ padding: "64px 0 40px", textAlign: "center" }}>
           <div className="wrap">
-            <p className="eyebrow">A limited Rakhi drop from Grihasti</p>
-            <h1 style={{ fontSize: 56, margin: "16px 0 14px" }}>
-              This Rakhi, gift them a candle that&apos;s <em>so</em> them.
+            <p className="eyebrow">The Bhai-Behen Collection</p>
+
+            <p
+              className="deva-display"
+              lang="hi"
+              style={{ fontSize: 46, margin: "20px 0 10px", color: "var(--ink)" }}
+            >
+              जो सबसे ज़्यादा उन जैसा हो।
+            </p>
+
+            <h1 style={{ fontSize: 44, margin: "0 0 16px", fontWeight: 400 }}>
+              A candle that is unmistakably them.
             </h1>
-            <p style={{ maxWidth: 620, margin: "0 auto", fontSize: 18 }}>
-              Fourteen characterful caricature candles — the cool bhaiya, the chai-fuelled
-              behen, the little terror. Pick the one that&apos;s your sibling.
+
+            <p style={{ maxWidth: 600, margin: "0 auto", color: "var(--text2)" }}>
+              Fourteen caricature candles — the cool bhaiya, the chai-fuelled behen,
+              the little terror. Pick the one that is your sibling.
             </p>
 
             <div
               style={{
                 display: "flex", gap: 12, justifyContent: "center",
-                marginTop: 28, flexWrap: "wrap",
+                marginTop: 30, flexWrap: "wrap",
               }}
             >
               <Link href="/shop" className="btn">Shop the collection</Link>
               <Link href="/shop/gift-set" className="btn btn-ghost">See the gift set</Link>
             </div>
 
-            <p style={{ color: "var(--clay)", fontSize: 14, marginTop: 18 }}>
-              Small batches · order by 21 August for Raksha Bandhan
+            <p className="label" style={{ marginTop: 20 }}>
+              Small batches · order by 21 August
             </p>
           </div>
         </section>
 
-        {/* ── Featured designs ─────────────────────────────────────── */}
+        {/* ── Featured designs ─────────────────────────────────────────
+            §6: the rule above every section heading, full column width. */}
         {featured.length > 0 && (
           <section style={{ padding: "20px 0 12px" }}>
             <div className="wrap">
-              <div
-                style={{
-                  display: "flex", justifyContent: "space-between",
-                  alignItems: "baseline", marginBottom: 16, flexWrap: "wrap", gap: 8,
-                }}
-              >
-                <h2 style={{ fontSize: 30 }}>Which one&apos;s your sibling?</h2>
-                <Link href="/shop" style={{ color: "var(--clay)", fontSize: 15 }}>
-                  See all 15 →
-                </Link>
+              <div className="section-head">
+                <div className="rule" />
+                <div
+                  style={{
+                    display: "flex", justifyContent: "space-between",
+                    alignItems: "baseline", flexWrap: "wrap", gap: 8,
+                  }}
+                >
+                  <h2 style={{ fontSize: 32 }}>Which one is your sibling?</h2>
+                  <Link href="/shop" className="label" style={{ color: "var(--haldi)" }}>
+                    See all 15
+                  </Link>
+                </div>
               </div>
 
               <div className="grid grid-3">
@@ -85,7 +102,7 @@ export default async function Home() {
                   <Link
                     key={item.slug}
                     href={`/shop/${item.slug}`}
-                    className="card"
+                    className="card card-ruled"
                     style={{ textDecoration: "none", color: "inherit" }}
                   >
                     <div className="thumb" style={{ padding: 0 }}>
@@ -100,7 +117,7 @@ export default async function Home() {
                     </div>
                     <div style={{ padding: 16 }}>
                       <div style={{ fontFamily: "var(--serif)", fontSize: 19 }}>{item.name}</div>
-                      <div style={{ color: "var(--sage)", fontSize: 13, minHeight: 34 }}>
+                      <div style={{ color: "var(--meta)", fontSize: 13, minHeight: 34 }}>
                         {item.design?.persona ?? ""}
                       </div>
                       <div
@@ -126,13 +143,13 @@ export default async function Home() {
         <section style={{ padding: "36px 0 20px" }}>
           <div className="wrap grid grid-3">
             {[
-              ["Handmade & limited", "Small batches, only a few of each design."],
-              ["The gift they'll keep", "A keepsake, not a bouquet that wilts by Tuesday."],
-              ["Made for your bond", "Fourteen personas. One of them is unmistakably them."],
+              ["Poured in small batches", "A few of each design. When one is gone, it is gone."],
+              ["Kept, not consumed", "It sits on a shelf long after the sweets are finished."],
+              ["Two scents", "Aangan at Dusk and Sunday Slow. Chosen at checkout."],
             ].map(([t, s]) => (
-              <div key={t} className="card" style={{ padding: 22 }}>
+              <div key={t} className="card card-ruled" style={{ padding: 22 }}>
                 <div style={{ fontFamily: "var(--serif)", fontSize: 20 }}>{t}</div>
-                <div style={{ color: "var(--sage)", marginTop: 4 }}>{s}</div>
+                <div style={{ color: "var(--meta)", marginTop: 4 }}>{s}</div>
               </div>
             ))}
           </div>
@@ -141,12 +158,13 @@ export default async function Home() {
         {/* ── The referral programme ───────────────────────────────── */}
         <section style={{ padding: "28px 0" }}>
           <div className="wrap">
-            <div className="card" style={{ padding: 32, background: "#fff8ef", textAlign: "center" }}>
+            <div className="rule" />
+            <div className="card" style={{ padding: 32, background: "var(--band)", textAlign: "center", borderTop: "none" }}>
               <p className="eyebrow">Your circle</p>
               <h2 style={{ fontSize: 32, margin: "10px 0 10px" }}>
                 Get {(RATES[0] * 100).toFixed(0)}% back. So does whoever brought you.
               </h2>
-              <p style={{ maxWidth: 620, margin: "0 auto", color: "var(--ember)" }}>
+              <p style={{ maxWidth: 620, margin: "0 auto", color: "var(--ink)" }}>
                 Every order earns you {(RATES[0] * 100).toFixed(0)}% back as credit on the next
                 one. Invite up to {INVITE_GATE} people and you keep earning a share of what
                 they spend — and what their friends spend — for as long as they shop with us.
@@ -154,8 +172,8 @@ export default async function Home() {
               <div style={{ display: "flex", gap: 12, justifyContent: "center", marginTop: 22, flexWrap: "wrap" }}>
                 <Link href="/login" className="btn">Start your circle</Link>
               </div>
-              <p style={{ color: "var(--sage)", fontSize: 13, marginTop: 14 }}>
-                Five invites each. No fees, no catch — just a smaller marketing budget.
+              <p className="label" style={{ marginTop: 16 }}>
+                Five invites each · no fee · no expiry
               </p>
             </div>
           </div>

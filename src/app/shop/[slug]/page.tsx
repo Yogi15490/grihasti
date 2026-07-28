@@ -25,7 +25,7 @@ export default async function DesignDetail({
         <div className="wrap" style={{ padding: "28px 0" }}>
           <Link
             href="/shop"
-            style={{ color: "var(--brass)", textDecoration: "none", fontSize: 14 }}
+            style={{ color: "var(--haldi)", textDecoration: "none", fontSize: 14 }}
           >
             ← Back to the collection
           </Link>
@@ -48,7 +48,7 @@ export default async function DesignDetail({
             <p className="eyebrow">Grihasti · The Bhai-Behen Collection</p>
             <h1 style={{ fontSize: 40, margin: "10px 0 6px" }}>{item.name}</h1>
             {d && (
-              <p className="serif-italic" style={{ color: "var(--clay)", fontSize: 18 }}>
+              <p className="serif-italic" style={{ color: "var(--haldi)", fontSize: 18 }}>
                 {d.persona}
               </p>
             )}
@@ -70,17 +70,17 @@ export default async function DesignDetail({
             </p>
 
             {item.isSoldOut ? (
-              <div className="card" style={{ padding: 20, background: "#fff8ef" }}>
+              <div className="card" style={{ padding: 20, background: "var(--band)" }}>
                 <div style={{ fontFamily: "var(--serif)", fontSize: 20 }}>
                   This one&apos;s gone.
                 </div>
-                <p style={{ color: "var(--sage)", marginTop: 6, fontSize: 14 }}>
+                <p style={{ color: "var(--meta)", marginTop: 6, fontSize: 14 }}>
                   Small batches, and this design went fast. The{" "}
-                  <Link href="/shop/gift-set" style={{ color: "var(--clay)" }}>
+                  <Link href="/shop/gift-set" style={{ color: "var(--haldi)" }}>
                     Rakhi Gift Set
                   </Link>{" "}
                   is a lovely stand-in, or browse{" "}
-                  <Link href="/shop" style={{ color: "var(--clay)" }}>
+                  <Link href="/shop" style={{ color: "var(--haldi)" }}>
                     the rest of the collection
                   </Link>
                   .

@@ -43,17 +43,17 @@ export default async function AccountPage() {
             ],
           ].map(([label, value, sub]) => (
             <div key={label} className="card" style={{ padding: 20 }}>
-              <div style={{ fontSize: 12, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--brass)" }}>
+              <div style={{ fontSize: 12, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--haldi)" }}>
                 {label}
               </div>
               <div className="price" style={{ fontSize: 28, marginTop: 6 }}>{value}</div>
-              <div style={{ color: "var(--sage)", fontSize: 13 }}>{sub}</div>
+              <div style={{ color: "var(--meta)", fontSize: 13 }}>{sub}</div>
             </div>
           ))}
         </div>
 
         {dash.balanceInr !== dash.availableInr && (
-          <p style={{ color: "var(--sage)", fontSize: 13, marginBottom: 20 }}>
+          <p style={{ color: "var(--meta)", fontSize: 13, marginBottom: 20 }}>
             {inr(dash.balanceInr - dash.availableInr)} is held against an order you haven&apos;t
             paid for yet. It&apos;ll come back if that order isn&apos;t completed.
           </p>
@@ -62,9 +62,9 @@ export default async function AccountPage() {
         {!dash.circleIsFull && <ShareCircle shareUrl={dash.shareUrl} />}
 
         {dash.circleIsFull && (
-          <div className="card" style={{ padding: 24, background: "#fff8ef" }}>
+          <div className="card" style={{ padding: 24, background: "var(--band)" }}>
             <h2 style={{ fontSize: 24 }}>Your circle is full.</h2>
-            <p style={{ color: "var(--sage)", fontSize: 14, marginTop: 6 }}>
+            <p style={{ color: "var(--meta)", fontSize: 14, marginTop: 6 }}>
               All five invites are used — but you keep earning from everyone in it,
               on every order they place, for as long as they shop with us.
             </p>
@@ -74,14 +74,14 @@ export default async function AccountPage() {
         {/* ── Downline ─────────────────────────────────────────────── */}
         <section style={{ marginTop: 36 }}>
           <h2 style={{ fontSize: 26, marginBottom: 4 }}>Who you&apos;ve brought in</h2>
-          <p style={{ color: "var(--sage)", fontSize: 14, marginBottom: 16 }}>
+          <p style={{ color: "var(--meta)", fontSize: 14, marginBottom: 16 }}>
             You earn {(dash.rates[1].rate * 100).toFixed(1)}% on people you invited directly,
             {" "}{(dash.rates[2].rate * 100).toFixed(2)}% on theirs, and
             {" "}{(dash.rates[3].rate * 100).toFixed(3)}% one level beyond that.
           </p>
 
           {dash.downline.length === 0 ? (
-            <div className="card" style={{ padding: 24, textAlign: "center", color: "var(--sage)" }}>
+            <div className="card" style={{ padding: 24, textAlign: "center", color: "var(--meta)" }}>
               Nobody yet. Share your link above — you&apos;ll earn on every order they place.
             </div>
           ) : (
@@ -92,12 +92,12 @@ export default async function AccountPage() {
                   style={{
                     display: "flex", justifyContent: "space-between", alignItems: "center",
                     padding: "14px 18px",
-                    borderTop: i === 0 ? "none" : "1px solid #f2ebdd",
+                    borderTop: i === 0 ? "none" : "1px solid var(--sand)",
                   }}
                 >
                   <div>
                     <div style={{ fontSize: 15 }}>{m.maskedEmail}</div>
-                    <div style={{ color: "var(--sage)", fontSize: 12 }}>
+                    <div style={{ color: "var(--meta)", fontSize: 12 }}>
                       Level {m.level} · {m.ordersPaid === 0
                         ? "no orders yet"
                         : `${m.ordersPaid} order${m.ordersPaid === 1 ? "" : "s"}`}
@@ -114,9 +114,9 @@ export default async function AccountPage() {
         <section style={{ marginTop: 36 }}>
           <h2 style={{ fontSize: 26, marginBottom: 16 }}>Your orders</h2>
           {orders.length === 0 ? (
-            <div className="card" style={{ padding: 24, textAlign: "center", color: "var(--sage)" }}>
+            <div className="card" style={{ padding: 24, textAlign: "center", color: "var(--meta)" }}>
               No orders yet.{" "}
-              <Link href="/shop" style={{ color: "var(--clay)" }}>Browse the collection</Link>
+              <Link href="/shop" style={{ color: "var(--haldi)" }}>Browse the collection</Link>
             </div>
           ) : (
             <div className="card" style={{ padding: 0, overflow: "hidden" }}>
@@ -127,12 +127,12 @@ export default async function AccountPage() {
                   style={{
                     display: "flex", justifyContent: "space-between", alignItems: "center",
                     padding: "14px 18px", textDecoration: "none", color: "inherit",
-                    borderTop: i === 0 ? "none" : "1px solid #f2ebdd",
+                    borderTop: i === 0 ? "none" : "1px solid var(--sand)",
                   }}
                 >
                   <div>
                     <div style={{ fontSize: 15, textTransform: "capitalize" }}>{o.status}</div>
-                    <div style={{ color: "var(--sage)", fontSize: 12 }}>
+                    <div style={{ color: "var(--meta)", fontSize: 12 }}>
                       {new Date(o.createdAt).toLocaleDateString("en-IN", {
                         day: "numeric", month: "short", year: "numeric",
                       })}
@@ -151,7 +151,7 @@ export default async function AccountPage() {
         <section style={{ marginTop: 36 }}>
           <h2 style={{ fontSize: 26, marginBottom: 16 }}>Cashback history</h2>
           {ledger.length === 0 ? (
-            <div className="card" style={{ padding: 24, textAlign: "center", color: "var(--sage)" }}>
+            <div className="card" style={{ padding: 24, textAlign: "center", color: "var(--meta)" }}>
               Nothing here yet.
             </div>
           ) : (
@@ -162,12 +162,12 @@ export default async function AccountPage() {
                   style={{
                     display: "flex", justifyContent: "space-between", alignItems: "center",
                     padding: "12px 18px",
-                    borderTop: i === 0 ? "none" : "1px solid #f2ebdd",
+                    borderTop: i === 0 ? "none" : "1px solid var(--sand)",
                   }}
                 >
                   <div>
                     <div style={{ fontSize: 14 }}>{row.description}</div>
-                    <div style={{ color: "var(--sage)", fontSize: 12 }}>
+                    <div style={{ color: "var(--meta)", fontSize: 12 }}>
                       {new Date(row.createdAt).toLocaleDateString("en-IN", {
                         day: "numeric", month: "short",
                       })}
@@ -176,7 +176,7 @@ export default async function AccountPage() {
                   <div
                     style={{
                       fontFamily: "var(--serif)", fontSize: 17,
-                      color: row.amountInr < 0 ? "var(--sage)" : "var(--clay)",
+                      color: row.amountInr < 0 ? "var(--meta)" : "var(--haldi)",
                     }}
                   >
                     {row.amountInr < 0 ? "−" : "+"}{inr(Math.abs(row.amountInr))}
@@ -192,8 +192,8 @@ export default async function AccountPage() {
             type="submit"
             style={{
               background: "none", border: "none", cursor: "pointer",
-              color: "var(--sage)", fontSize: 13, textDecoration: "underline",
-              fontFamily: "var(--sans)",
+              color: "var(--meta)", fontSize: 13, textDecoration: "underline",
+              fontFamily: "var(--mono)",
             }}
           >
             Sign out

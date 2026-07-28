@@ -49,26 +49,26 @@ export default async function AdminPage() {
             ["Sold out", String(summary.soldOutDesigns), "Designs at zero"],
           ].map(([label, value, sub]) => (
             <div key={label} className="card" style={{ padding: 18 }}>
-              <div style={{ fontSize: 11, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--brass)" }}>
+              <div style={{ fontSize: 11, letterSpacing: ".1em", textTransform: "uppercase", color: "var(--haldi)" }}>
                 {label}
               </div>
               <div className="price" style={{ fontSize: 24, marginTop: 4 }}>{value}</div>
-              <div style={{ color: "var(--sage)", fontSize: 12 }}>{sub}</div>
+              <div style={{ color: "var(--meta)", fontSize: 12 }}>{sub}</div>
             </div>
           ))}
         </div>
 
-        <p style={{ color: "var(--sage)", fontSize: 13, marginBottom: 30 }}>
+        <p style={{ color: "var(--meta)", fontSize: 13, marginBottom: 30 }}>
           {summary.members} members · {summary.waitlistSize} on the waitlist
         </p>
 
         {/* ── Held orders ──────────────────────────────────────────── */}
         {held.length > 0 && (
           <section style={{ marginBottom: 34 }}>
-            <h2 style={{ fontSize: 24, marginBottom: 6, color: "var(--clay)" }}>
+            <h2 style={{ fontSize: 24, marginBottom: 6, color: "var(--haldi)" }}>
               Needs your attention
             </h2>
-            <p style={{ color: "var(--sage)", fontSize: 14, marginBottom: 14 }}>
+            <p style={{ color: "var(--meta)", fontSize: 14, marginBottom: 14 }}>
               These customers paid for stock we didn&apos;t have. Refund them.
             </p>
             {held.map((o) => <AdminOrderRow key={o.orderId} order={o} />)}
@@ -79,7 +79,7 @@ export default async function AdminPage() {
         <section style={{ marginBottom: 34 }}>
           <h2 style={{ fontSize: 24, marginBottom: 14 }}>Orders</h2>
           {orders.length === 0 ? (
-            <div className="card" style={{ padding: 24, color: "var(--sage)" }}>No orders yet.</div>
+            <div className="card" style={{ padding: 24, color: "var(--meta)" }}>No orders yet.</div>
           ) : (
             orders
               .filter((o) => !o.fulfilmentHold || o.status === "refunded")
@@ -90,7 +90,7 @@ export default async function AdminPage() {
         {/* ── Stock ────────────────────────────────────────────────── */}
         <section>
           <h2 style={{ fontSize: 24, marginBottom: 6 }}>Stock</h2>
-          <p style={{ color: "var(--sage)", fontSize: 14, marginBottom: 14 }}>
+          <p style={{ color: "var(--meta)", fontSize: 14, marginBottom: 14 }}>
             Absolute counts — set what&apos;s physically on the shelf, not a change.
           </p>
           {stock.map((s) => <AdminStockRow key={s.productId} item={s} />)}
