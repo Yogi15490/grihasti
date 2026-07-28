@@ -134,15 +134,20 @@ else
   cp "$CADDYFILE" "$BACKUP"
   yellow "  Backed up Caddyfile to $BACKUP"
 
+  # Automatic TLS, no Cloudflare client-certificate requirement.
+  #
+  # workrize.in uses `client_auth require_and_verify` against the Cloudflare
+  # origin-pull CA. That only works when the zone has Authenticated Origin
+  # Pulls switched on AND traffic is proxied through Cloudflare. grihasti.in
+  # points straight at this box, so demanding a client cert made Caddy reject
+  # Let's Encrypt's own validation request and no certificate could ever be
+  # issued. This config works whether or not Cloudflare sits in front.
+  #
+  # To harden later: put the domain behind Cloudflare (orange cloud), enable
+  # Authenticated Origin Pulls for the zone, THEN add the client_auth block.
   cat >> "$CADDYFILE" <<EOF
 
 $DOMAIN, www.$DOMAIN {
-	tls {
-		client_auth {
-			mode require_and_verify
-			trust_pool file /etc/caddy/cf-origin-pull-ca.pem
-		}
-	}
 	reverse_proxy grihasti-web:3000
 }
 EOF
