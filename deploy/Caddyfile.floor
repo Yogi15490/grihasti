@@ -1,0 +1,36 @@
+# Grihasti's OWN web server, inside Grihasti's floor.
+#
+# Plain HTTP on 8080, never exposed to the internet. The guard at /root/edge
+# terminates TLS and hands requests here over the private `edge` network.
+#
+# NO CLOUDFLARE ON THIS DOMAIN, unlike workrize, farmsae, coldpressery and
+# lifetrack. grihasti.in has no `tls` block at the guard at all, so Caddy
+# obtains and renews a Let's Encrypt certificate itself and the domain
+# resolves straight to the server. Stonaria is in the same position. Adding a
+# client_auth block to make this match its neighbours would take the site off
+# the internet, because there is no Cloudflare in front to present the
+# certificate it would then demand.
+#
+# ── THE HEADER LINE ─────────────────────────────────────────────────────
+#
+# A floor adds a proxy hop: guard -> gate -> Next.js, where before it was
+# guard -> Next.js. Caddy sets X-Forwarded-Proto from the scheme IT received,
+# and this gate receives plain HTTP on 8080, so without the line below Next
+# would be told every request arrived insecure.
+#
+# Nothing in this app currently redirects on that - there is no middleware
+# forcing HTTPS, which was checked rather than assumed on 10 August 2026. So
+# unlike Stonaria and Workrize, this line is not standing between you and an
+# outage today. It is here because Next uses the header to build absolute
+# URLs, so without it a canonical tag, an OG image URL or a redirect after
+# checkout can come out as http:// on an https:// page. And it is here
+# because the day somebody adds an HTTPS redirect should not be the day the
+# site starts looping.
+
+:8080 {
+	encode gzip
+
+	reverse_proxy web:3000 {
+		header_up X-Forwarded-Proto https
+	}
+}

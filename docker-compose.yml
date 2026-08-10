@@ -1,17 +1,31 @@
-# Grihasti — production stack.
+# Grihasti — production stack, and a FLOOR in the building since 10 Aug 2026.
 #
-# Deliberately does NOT run its own Caddy. The box already has one (from the
-# workrize stack) owning ports 80/443 and terminating Cloudflare origin certs
-# for workrize.in, coldpressery.in and farmsae.com. A second Caddy would fight
-# it for those ports.
+# ── WHAT CHANGED, AND WHY THE OLD COMMENT WAS RIGHT AT THE TIME ─────────
 #
-# Instead grihasti's web container joins workrize's EXISTING compose network,
-# so the running Caddy can reach `grihasti-web:3000` by name. This direction
-# was chosen on purpose: the alternative (a new shared network) would mean
-# editing workrize's docker-compose.yml, and workrize is a live site. Here the
-# only change on that side is an append to its Caddyfile.
+# This file used to explain that grihasti deliberately ran no Caddy of its
+# own, because the box already had one — inside the WORKRIZE stack — owning
+# ports 80 and 443, and a second would fight it. So grihasti's web container
+# joined Workrize's compose network and let that Caddy reach it by name.
 #
-# Override the network name with WORKRIZE_NETWORK if it differs.
+# That was sound reasoning and it stopped being true on 6 August 2026. The
+# machine was reorganised into a building: a guard at /root/edge owns 80 and
+# 443 and belongs to NO site, and each site is a floor holding everything it
+# owns, reached through the shared `edge` network. Nothing has to live inside
+# a neighbour's stack any more.
+#
+# See ~/Projects/stonaria/deploy/README.md for the whole picture.
+#
+# ── THE COLLISION THIS FIXES, WHICH IS NOT THEORETICAL ──────────────────
+#
+# Compose publishes the SERVICE NAME as a network alias. This project's
+# service is called `web`. So is Workrize's. While both sit on
+# `workrize_default`, the bare name `web` resolves there to whichever
+# container Docker feels like — and `reverse_proxy web:8000` in Workrize's
+# old Caddyfile is exactly how every visitor to workrize.in was handed
+# Stonaria's application for SEVEN DAYS in July. Same trap, one network over.
+#
+# The fix is the `legacy` network below coming off `web` once the guard is
+# routing to the gate. It is marked TRANSITIONAL for that reason.
 
 services:
   db:
@@ -48,13 +62,54 @@ services:
     # idempotent, so a deploy with no new migrations is a no-op.
     command: >
       sh -c "node scripts/migrate.mjs && node server.js"
-    networks: [internal, edge]
+    # `legacy` IS TRANSITIONAL AND COMES OFF AFTER THE CUTOVER.
+    #
+    # Until the guard is pointed at `grihasti-gate`, it still reaches this
+    # container directly across Workrize's network, and removing that here
+    # would black out grihasti.in the moment this deploys. So it stays for
+    # the crossover — this file has to be correct BOTH BEFORE AND AFTER —
+    # and comes off in a one-line commit once the gate is serving.
+    #
+    # Leaving it on permanently is not neutral: see the collision note at the
+    # top of this file. `web` is a name two projects share.
+    networks: [internal, legacy]
+
+  gate:
+    # Grihasti's own front door. Idle until the guard is repointed, and that
+    # is why it lives in this file rather than an overlay: CI deploys with a
+    # plain `docker compose up -d`, so a gate defined anywhere else would
+    # simply not exist after the next push — and the guard would be pointing
+    # at a container that is not there.
+    image: caddy:2-alpine
+    container_name: grihasti-gate
+    restart: always
+    volumes:
+      - ./deploy/Caddyfile.floor:/etc/caddy/Caddyfile:ro
+    depends_on:
+      - web
+    networks:
+      # `internal` to reach web on this floor, `corridor` so the building's
+      # guard can reach the gate. The ONLY grihasti container on the corridor.
+      - internal
+      - corridor
 
 volumes:
   grihasti_pgdata:
 
 networks:
   internal:
-  edge:
+
+  # THE CORRIDOR. Created once by hand on the host (`docker network create
+  # edge`) and owned by no site. Every floor joins it; it is not a floor.
+  corridor:
+    external: true
+    name: edge
+
+  # WORKRIZE'S OWN NETWORK, joined only for the crossover. This is the entry
+  # that used to be called `edge` in this file, back when Workrize's Caddy
+  # was the front door for the whole machine. It is renamed rather than
+  # deleted so that the name says what it is: not a corridor, somebody else's
+  # flat. Remove it, and the `legacy` line under `web`, once the gate serves.
+  legacy:
     external: true
     name: ${WORKRIZE_NETWORK:-workrize_default}
